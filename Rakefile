@@ -1,6 +1,3 @@
-require 'kitchen/rake_tasks'
-Kitchen::RakeTasks.new
-
 namespace :style do
   desc 'Run Ruby style checks'
   require 'rubocop/rake_task'
@@ -14,4 +11,11 @@ end
 desc 'Run all style checks'
 task 'style:all' => ['style:ruby', 'style:chef']
 
-task default: ['style:all', 'kitchen:all']
+if ENV['DIGITALOCEAN_ACCESS_TOKEN']
+  require 'kitchen/rake_tasks'
+  Kitchen::RakeTasks.new
+
+  task default: ['style:all', 'kitchen:all']
+else
+  task default: ['style:all']
+end
