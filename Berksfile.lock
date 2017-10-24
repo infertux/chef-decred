@@ -1,0 +1,9 @@
+DEPENDENCIES
+  decred
+    path: .
+    metadata: true
+
+GRAPH
+  decred (1.0.0)
+    golang (>= 0.0.0)
+  golang (1.7.0)

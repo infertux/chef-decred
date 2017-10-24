@@ -1,0 +1,16 @@
+language: ruby
+sudo: required
+rvm:
+  - 2.4.2
+  - 2.3.5
+env:
+  matrix:
+    - KITCHEN_RECIPE=
+    - KITCHEN_RECIPE=dcrd
+    - KITCHEN_RECIPE=dcrwallet
+before_install: gem update --system --no-doc # https://github.com/sickill/rainbow/issues/49
+install:
+  - bundle exec berks install
+script:
+  - test -n "$KITCHEN_RECIPE" || bundle exec rake style:all
+  - test -z "$KITCHEN_RECIPE" || bundle exec rake kitchen:$KITCHEN_RECIPE-debian-9-x64

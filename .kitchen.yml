@@ -1,0 +1,37 @@
+---
+driver:
+  name: digitalocean
+
+provisioner:
+  name: chef_zero
+
+verifier:
+  name: inspec
+
+platforms:
+  - name: debian-9-x64
+    driver_config:
+      region: fra1
+      size: 1gb
+      private_networking: false
+      ipv6: false
+
+suites:
+  - name: dcrd
+    run_list:
+      - recipe[decred::dcrd]
+    verifier:
+      inspec_tests:
+        - test/integration/default/inspec/dcrd_spec.rb
+
+  - name: dcrwallet
+    run_list:
+      - recipe[decred::dcrwallet]
+    attributes:
+      decred:
+        dcrwallet:
+          dummywallet: true
+          passphrase: secret
+    verifier:
+      inspec_tests:
+        - test/integration/default/inspec/dcrwallet_spec.rb
