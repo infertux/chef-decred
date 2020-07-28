@@ -239,7 +239,7 @@ GEM
     rack (2.0.3)
     rainbow (2.2.2)
       rake
-    rake (12.1.0)
+    rake (12.3.3)
     resource_kit (0.1.7)
       addressable (>= 2.3.6, < 3.0.0)
     retryable (2.0.4)
